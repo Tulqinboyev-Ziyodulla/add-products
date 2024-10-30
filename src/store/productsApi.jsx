@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const productsApi = createApi({
   reducerPath: "productsApi",
-  tagTypes: ['Products'], // To'g'ri 'tagTypes' ni belgilash
+  tagTypes: ['Products'],
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000" }),
   endpoints: (builder) => ({
     getAllProducts: builder.query({
@@ -18,22 +18,22 @@ export const productsApi = createApi({
         method: "POST",
         body: newData,
       }),
-      invalidatesTags: [{ type: 'Products', id: 'LIST' }], // Yana hamma mahsulotlarni yangilash
+      invalidatesTags: [{ type: 'Products', id: 'LIST' }],
     }),
     deleteProduct: builder.mutation({
       query: (id) => ({
         url: `/products/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: [{ type: 'Products', id: 'LIST' }], // Mahsulot o'chirilganda yangilanish
+      invalidatesTags: [{ type: 'Products', id: 'LIST' }],
     }),
     updateProduct: builder.mutation({
       query: ({ id, ...updatedData }) => ({
         url: `/products/${id}`,
-        method: "PUT", // Yangilash uchun PUT metodidan foydalanamiz
+        method: "PUT",
         body: updatedData,
       }),
-      invalidatesTags: [{ type: 'Products', id: 'LIST' }], // Yangilangan mahsulotlar uchun yangilanish
+      invalidatesTags: [{ type: 'Products', id: 'LIST' }],
     }),
   }),
 });
@@ -41,6 +41,6 @@ export const productsApi = createApi({
 export const {
   useGetAllProductsQuery,
   useAddProductsMutation,
-  useDeleteProductMutation, // O'chirish funktsiyasini export qilish
-  useUpdateProductMutation, // Yangilash funktsiyasini export qilish
+  useDeleteProductMutation,
+  useUpdateProductMutation,
 } = productsApi;

@@ -1,7 +1,7 @@
 import './App.css';
 import { useAddProductsMutation, useGetAllProductsQuery, useDeleteProductMutation, useUpdateProductMutation } from './store/productsApi';
 import { useState } from 'react';
-import Modal from './store/Modal'; // Modal komponentini import qilish
+import Modal from './store/Modal';
 
 function App() {
   const { data = [] } = useGetAllProductsQuery();
@@ -10,8 +10,8 @@ function App() {
   const [updateProduct] = useUpdateProductMutation();
 
   const [editingProduct, setEditingProduct] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false); // Modal ochilish holati
-  const [action, setAction] = useState(null); // Harakat turi (o'chirish yoki yangilash)
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [action, setAction] = useState(null); 
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -28,29 +28,29 @@ function App() {
   }
 
   function handleDelete(id) {
-    setEditingProduct(data.find(item => item.id === id)); // Tahrirlanadigan mahsulotni o'rnatish
-    setAction('delete'); // O'chirish harakatini belgilash
-    setIsModalOpen(true); // Modalni ochish
+    setEditingProduct(data.find(item => item.id === id));
+    setAction('delete'); 
+    setIsModalOpen(true);
   }
 
   function handleEdit(product) {
     setEditingProduct(product);
-    setAction('edit'); // Tahrirlash harakatini belgilash
-    setIsModalOpen(true); // Modalni ochish
+    setAction('edit');
+    setIsModalOpen(true);
   }
 
   function confirmDelete() {
     if (editingProduct) {
-      deleteProduct(editingProduct.id); // Mahsulotni o'chirish
+      deleteProduct(editingProduct.id);
     }
-    setIsModalOpen(false); // Modalni yopish
+    setIsModalOpen(false); 
   }
 
   function confirmEdit(newTitle) {
     if (editingProduct) {
-      updateProduct({ id: editingProduct.id, title: newTitle }); // Mahsulotni yangilash
+      updateProduct({ id: editingProduct.id, title: newTitle });
     }
-    setIsModalOpen(false); // Modalni yopish
+    setIsModalOpen(false);
   }
 
   return (
@@ -96,14 +96,13 @@ function App() {
       </ul>
 
 
-      {/* Modal komponenti */}
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onConfirm={action === 'delete' ? confirmDelete : confirmEdit} // Harakatga qarab tasdiqlash
+        onConfirm={action === 'delete' ? confirmDelete : confirmEdit}
         title={action === 'delete' ? "O'chirish tasdiqlash" : "Mahsulotni tahrirlash"}
         message={action === 'delete' ? `Siz "${editingProduct?.title}" mahsulotini o'chirishni xohlaysizmi?` : "Yangi nomni kiriting:"}
-        initialTitle={editingProduct ? editingProduct.title : ''} // Modalga dastlabki nom
+        initialTitle={editingProduct ? editingProduct.title : ''}
       />
     </div>
   );

@@ -4,14 +4,14 @@ const Modal = ({ isOpen, onClose, onConfirm, title, message, initialTitle }) => 
   const [titleInput, setTitleInput] = useState(initialTitle || '');
 
   useEffect(() => {
-    setTitleInput(initialTitle || ''); // Modal ochilganda inputni yangilash
+    setTitleInput(initialTitle || '');
   }, [initialTitle, isOpen]);
 
   if (!isOpen) return null;
 
   const handleConfirm = () => {
-    onConfirm(titleInput); // Tasdiqlashda inputdagi nomni yuborish
-    onClose(); // Modalni yopish
+    onConfirm(titleInput);
+    onClose();
   };
 
   return (
@@ -22,7 +22,7 @@ const Modal = ({ isOpen, onClose, onConfirm, title, message, initialTitle }) => 
         <input
           type="text"
           value={titleInput}
-          onChange={(e) => setTitleInput(e.target.value)} // Input qiymatini yangilash
+          onChange={(e) => setTitleInput(e.target.value)}
           className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
           placeholder="Yangi nomni kiriting..."
         />
